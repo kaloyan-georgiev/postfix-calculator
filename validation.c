@@ -3,9 +3,8 @@
 #include <string.h>
 
 //to do :
-// number for all operands
 // last operation is with 1 number in stack
-// -
+
 int not_letter(char* c){
     char pi[] = "pi";
     char ln[] = "ln";
