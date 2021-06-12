@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-//to do :
-// last operation is with 1 number in stack
+//to be fixed :
+// pi is 2 characters,instead of 1 number,ln too
 
 int not_letter(char* c){
     char pi[] = "pi";
@@ -32,16 +32,24 @@ int validate(char* string) {
         }
 
         // Getting number of operands and operators
+
+        // Character should not be space or operator
         if(not_letter(&string[i]) || not_operator(string[i]) && string[i] != ' '){
             num_of_operands++;
         }
-        else if(not_letter(&string[i])==1 || not_operator(string[i])==0){
+        // Character is letter or operator
+        else if( (not_letter(&string[i])==1) || (not_operator(string[i])==0) ){
             num_of_operators++;
+
         }
     }
     // Comparison between number of operands and operators
     if(num_of_operands < num_of_operators + 1){
         printf("Operators should be less");
+        return 0;
+    }
+    if(num_of_operands > num_of_operators + 1){
+        printf("Operands should be less");
         return 0;
     }
     // Kalata i Dankata kato si napravqt funkciqta
@@ -53,6 +61,6 @@ int validate(char* string) {
 }
 
 int main () {
-    printf("%d", validate("5 4 3 * +"));
+    printf("%d", validate("pi + +"));
     return 0;
 }
