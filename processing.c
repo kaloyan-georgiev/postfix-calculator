@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 struct node_t
 {
@@ -63,6 +64,33 @@ void divide(struct stack_t *stack)
     b = pop(stack);
     result = b / a;
     push(stack, result);
+}
+
+void natural_log(struct stack_t *stack)
+{
+    int a, result = 0;
+    a = (pop(stack));
+    result = log(a);
+    push(stack, result);
+}
+
+void log_base(struct stack_t *stack)
+{
+    int a, b, result = 0;
+    a = pop(stack);
+    b = pop(stack);
+    result = (log(b) / log(a));
+    push(stack, result);
+}
+
+void pi(struct stack_t *stack)
+{
+    push(stack, M_PI);
+}
+
+void e(struct stack_t *stack)
+{
+    push(stack, M_E);
 }
 
 int main()
