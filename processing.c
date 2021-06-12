@@ -4,7 +4,7 @@
 
 struct node_t
 {
-    int data;
+    float data;
     struct node_t *next;
 };
 
@@ -13,7 +13,7 @@ struct stack_t
     struct node_t *head;
 };
 
-void push(struct stack_t *stack, int value)
+void push(struct stack_t *stack, float value)
 {
     struct node_t *new_node = malloc(sizeof(struct node_t));
     new_node->data = value;
@@ -21,9 +21,9 @@ void push(struct stack_t *stack, int value)
     stack->head = new_node;
 }
 
-int pop(struct stack_t *stack)
+float pop(struct stack_t *stack)
 {
-    int value = stack->head->data;
+    float value = stack->head->data;
     struct node_t *old_head = stack->head;
     stack->head = stack->head->next;
     free(old_head);
@@ -32,7 +32,7 @@ int pop(struct stack_t *stack)
 
 void sum(struct stack_t *stack)
 {
-    int a, b, result = 0;
+    float a, b, result = 0;
     a = pop(stack);
     b = pop(stack);
     result = a + b;
@@ -41,7 +41,7 @@ void sum(struct stack_t *stack)
 
 void subtraction(struct stack_t *stack)
 {
-    int a, b, result = 0;
+    float a, b, result = 0;
     a = pop(stack);
     b = pop(stack);
     result = b - a;
@@ -50,7 +50,7 @@ void subtraction(struct stack_t *stack)
 
 void multiply(struct stack_t *stack)
 {
-    int a, b, result = 0;
+    float a, b, result = 0;
     a = pop(stack);
     b = pop(stack);
     result = a * b;
@@ -59,7 +59,7 @@ void multiply(struct stack_t *stack)
 
 void divide(struct stack_t *stack)
 {
-    int a, b, result = 0;
+    float a, b, result = 0;
     a = pop(stack);
     b = pop(stack);
     result = b / a;
@@ -68,7 +68,7 @@ void divide(struct stack_t *stack)
 
 void natural_log(struct stack_t *stack)
 {
-    int a, result = 0;
+    float a, result = 0;
     a = (pop(stack));
     result = log(a);
     push(stack, result);
@@ -76,7 +76,7 @@ void natural_log(struct stack_t *stack)
 
 void log_base(struct stack_t *stack)
 {
-    int a, b, result = 0;
+    float a, b, result = 0;
     a = pop(stack);
     b = pop(stack);
     result = (log(b) / log(a));
