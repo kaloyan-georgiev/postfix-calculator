@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-//to do :
-// last operation is with 1 number in stack
-
+//to be fixed :
+// works only with numbers between 0 and 9
 int not_letter(char* c){
     char pi[] = "pi";
     char ln[] = "ln";
@@ -32,27 +31,49 @@ int validate(char* string) {
         }
 
         // Getting number of operands and operators
+
+        // Character should not be space or operator
         if(not_letter(&string[i]) || not_operator(string[i]) && string[i] != ' '){
-            num_of_operands++;
+                if(string[i] == 'l' && string[i+1] == 'o' && string[i+2] == 'g'){
+                    num_of_operators++;
+                    i=i+2;
+                }
+                else if(string[i] == 'p' && string[i+1] == 'i' || string[i] == 'l' && string[i+1] == 'n'){
+                    num_of_operands++;
+                    i++;
+                }
+                else{
+                    num_of_operands++;
+                }
         }
-        else if(not_letter(&string[i])==1 || not_operator(string[i])==0){
-            num_of_operators++;
+        // Character is letter or operator
+        else if( (not_letter(&string[i])==1) || (not_operator(string[i])==0) ){
+                num_of_operators++;
         }
+
     }
     // Comparison between number of operands and operators
     if(num_of_operands < num_of_operators + 1){
-        printf("Operators should be less");
+        printf("Operators should be less.\n");
         return 0;
     }
+    if(num_of_operands > num_of_operators + 1){
+        printf("Operands should be less.\n");
+        return 0;
+    }
+    /*
     // Kalata i Dankata kato si napravqt funkciqta
     if(num_of_operands != 1){
-       printf("There should be only one number in stack.");
+       printf("There should be only one number in stack.\n");
     }
-    printf("%d %d\n",num_of_operands,num_of_operators);
+    */
+    printf("operands:%d operators:%d\n",num_of_operands,num_of_operators);
     return 1;
 }
 
 int main () {
-    printf("%d", validate("5 4 3 * +"));
+    
+    printf("%d", validate("5 3 log + +"));
     return 0;
+    
 }
