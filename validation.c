@@ -1,4 +1,4 @@
-#include <stdio.h>
+include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -29,7 +29,7 @@ int validate(char* string) {
     for(int i=0; string[i] != '\0'; i++) {
         // Validating operators and operands
         if(is_number(string[i])) {
-            if(string[i+1] != '\0' && string[i+1] == ' '){
+            if(string[i+1] != '\0' && (string[i+1] == ' ' || is_operator(string[i+1]))){
                 num_of_operands++;
             }
         }
@@ -38,40 +38,26 @@ int validate(char* string) {
         }
         else if(string[i] == '.'){
             if(i == 0 || (!is_number(string[i-1]) || !is_number(string[i+1])) ){
+                printf("Error around '.'\n");
                 return 0;
             }
         }
         else if(string[i] == 'l' && string[i+1] == 'o' && string[i+2] == 'g'){
-            if(string[i+1] == '\0' || string[i+2] == '\0'){
-                return 0;
-            }
-            else{
                 num_of_operators++;
                 i=i+2;
-            }
         }
         else if(string[i] == 'p' && string[i+1] == 'i'){
-            if(string[i+1] == '\0'){
-                return 0;
-            }
-            else{
                 num_of_operands++;
                 i++;
-            }
         }
         else if(string[i] == 'l' && string[i+1] == 'n'){
-            if(string[i+1] == '\0'){
-                return 0;
-            }
-            else{
                 i++;
-            }
         }
         else if(string[i] == 'e'){
             num_of_operands++;
         }
-        else if(string[i] != ' '){
-            printf("%c \n",string[i]);
+        else if(string[i] != ' ' && string[i] != '\n'){
+            printf("Character '%c' is not a valid character\n",string[i]);
             return 0;
         }
 
@@ -90,11 +76,4 @@ int validate(char* string) {
     
     //printf("operands:%d operators:%d\n",num_of_operands,num_of_operators);
     return 1;
-}
-
-int main () {
-    
-    printf("%d", validate("213 3 1 ln + +"));
-    return 0;
-    
 }
