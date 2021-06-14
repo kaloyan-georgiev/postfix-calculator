@@ -15,12 +15,6 @@ struct stack_t
 
 
 
-struct stack_t new_stack() {
-	struct stack_t stack;
-	stack.head = NULL;
-	return stack;
-}
-
 
 
 int pop(struct stack_t* stack) {
@@ -38,6 +32,15 @@ void push(struct stack_t* stack, float value) {
 	new_node->data = value;
 	new_node->next = stack->head;
 	stack->head = new_node;
+}
+
+
+
+
+struct stack_t new_stack() {
+	struct stack_t stack;
+	stack.head = NULL;
+	return stack;
 }
 
 
@@ -159,6 +162,35 @@ void input_data(struct stack_t* operands, struct stack_t* operators) {
 			printf("Found 0\n");
 			float num = test_float((input+i), 0);
 			push(operands, num);
+		} else {
+			switch(input[i]) {
+				case 'p':
+					pi(operands);
+					break;
+				case 'e':
+					e(operands);
+					break;
+				case '+':
+					sum(operands);
+					break;
+				case '-':
+					subtraction(operands);
+					break;
+				case '/':
+					divide(operands);
+					break;
+				case '*':
+					multiply(operands);
+					break;
+				case 'l':
+					if(input[i+1] == 'o') {
+						log_base(operands);
+					} 
+					else if(input[i+1] == 'n') {
+						natural_log(operands);
+					}
+					break;
+			}
 		}
 	}
 	
