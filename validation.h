@@ -1,3 +1,5 @@
+#ifndef VALIDATION_H
+#define VALIDATION_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,12 +31,12 @@ int validate(char* string) {
     for(int i=0; string[i] != '\0'; i++) {
         // Validating operators and operands
         if(is_number(string[i])) {
-            if(string[i+1] != '\0' && (string[i+1] == ' ' || is_operator(string[i+1]))){
+            if(string[i+1] == '\n' || string[i+1] == '\0' || (string[i+1] == ' ' || is_operator(string[i+1]))){
                 num_of_operands++;
             }
         }
         // 5 4 + +
-        else if(!not_operator(string[i])){
+        else if(is_operator(string[i])){
             if(num_of_operands >= 2){
                 num_of_operators++;
             }
@@ -85,3 +87,4 @@ int validate(char* string) {
     return 1;
 }
 
+#endif
