@@ -33,8 +33,15 @@ int validate(char* string) {
                 num_of_operands++;
             }
         }
+        // 5 4 + +
         else if(!not_operator(string[i])){
-            num_of_operators++;
+            if(num_of_operands >= 2){
+                num_of_operators++;
+            }
+            else{
+                printf("There should be more operands.");
+                return 0;
+            }
         }
         else if(string[i] == '.'){
             if(i == 0 || (!is_number(string[i-1]) || !is_number(string[i+1])) ){
@@ -77,3 +84,4 @@ int validate(char* string) {
     //printf("operands:%d operators:%d\n",num_of_operands,num_of_operators);
     return 1;
 }
+
