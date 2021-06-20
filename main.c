@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include "processing.h"
+#include "validation.h"
 #define EXP_MAX_LEN 500
 
 /*struct node_t
@@ -142,85 +143,61 @@ void input_data(struct stack_t* operands, struct stack_t* operators) {
 	char input[EXP_MAX_LEN];
 	printf("Enter expression:\n");
 	fgets(input, EXP_MAX_LEN, stdin);
-	for(int i=0; input[i] != '\0'; i++) {
-		if(input[i] >= '1' && input[i] <= '9') {
-			float num = (float)(test_multidigit(input + i));
-			printf("num is: %f\n", num);
-			
-			int digits = digit_count(num);
-			printf("Digits are: %d\n", digits);
-			
-			num = test_float(&(input[i+digits-1]), num);
-			printf("2: num is: %f\n", num);
-			
-			push(operands, (float) num);
-			i += digits-1;
-			
-			if(input[i + 1] == '.') {
-				printf("found %d decimals\n", decimal_count(num));
-				i += decimal_count(num)+1;
-			}
-			
-		} else if(input[i] == '0') {
-			printf("Found 0\n");
-			float num = test_float((input+i), 0);
-			push(operands, num);
-		} else {
-			switch(input[i]) {
-				case 'p':
-					pi(operands);
-					break;
-				case 'e':
-					e(operands);
-					break;
-				case '+':
-					sum(operands);
-					break;
-				case '-':
-					subtraction(operands);
-					break;
-				case '/':
-					divide(operands);
-					break;
-				case '*':
-					multiply(operands);
-					break;
-				case 'l':
-					if(input[i+1] == 'o') {
-						log_base(operands);
-					} 
-					else if(input[i+1] == 'n') {
-						natural_log(operands);
-					}
-					break;
+	if(validate(input)) {
+		for(int i=0; input[i] != '\0'; i++) {
+			if(input[i] >= '1' && input[i] <= '9') {
+				float num = (float)(test_multidigit(input + i));
+				
+				int digits = digit_count(num);
+				
+				num = test_float(&(input[i+digits-1]), num);
+				
+				push(operands, (float) num);
+				i += digits-1;
+				
+				if(input[i + 1] == '.') {
+					i += decimal_count(num)+1;
+				}
+				
+			} else if(input[i] == '0') {
+				float num = test_float((input+i), 0);
+				push(operands, num);
+			} else {
+				switch(input[i]) {
+					case 'p':
+						pi(operands);
+						break;
+					case 'e':
+						e(operands);
+						break;
+					case '+':
+						sum(operands);
+						break;
+					case '-':
+						subtraction(operands);
+						break;
+					case '/':
+						divide(operands);
+						break;
+					case '*':
+						multiply(operands);
+						break;
+					case 'l':
+						if(input[i+1] == 'o') {
+							log_base(operands);
+						} 
+						else if(input[i+1] == 'n') {
+							natural_log(operands);
+						}
+						break;
+				}
 			}
 		}
+	} else {
+		return;
 	}
 	
 }
-/*void tokenize_data(char* input, struct stack_t* operands, struct stack_t* operators) {
-	for(int i=0; input[i] != '\0'; i++) {
-	if(input[i] >= '1' && input[i] <= '9') {
-		int j;
-		struct stack_t chars = new_stack();
-		int num = 0;
-		for(j=0; 1; j++) {
-			if(input[i+j] >= '0' && input[i+j] <= '9') {
-				push(&chars, input[i+j]);
-			} else {
-				for(int i=1; chars.head != NULL; i *= 10) {
-					num += char_to_int(pop(&chars)) * i;
-				}
-				break;
-			}
-		}
-		push(operands, num);
-		i += j;
-	} else if(input[i] == '0') {
-		push(operands, 0);
-	}
-	}
-}*/
 void print_stack(struct stack_t stack) {
 	struct node_t* current = stack.head;
 	while(current != NULL) {
