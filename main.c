@@ -57,6 +57,14 @@ int char_to_int(char number) {
 
 
 
+void free_stack(struct stack_t* stack) {
+	while(stack->head != NULL) {
+		pop(stack);
+	}
+}
+
+
+
 int digit_count(float num) {
 	int count = 0;
 	int numnew = (int)num;
@@ -139,7 +147,7 @@ float test_float(char* start, float num) {
 
 
 
-void input_data(struct stack_t* operands, struct stack_t* operators) {
+void input_data(struct stack_t* operands) {
 	char input[EXP_MAX_LEN];
 	printf("Enter expression:\n");
 	fgets(input, EXP_MAX_LEN, stdin);
@@ -205,10 +213,11 @@ void print_stack(struct stack_t stack) {
 		current = current->next;
 	}
 }
+
 int main() {
-	struct stack_t operators = new_stack();
 	struct stack_t operands = new_stack();
-	input_data(&operands, &operators);
+	input_data(&operands);
 	print_stack(operands);
+	free_stack(&operands);
 	return 0;
 }
