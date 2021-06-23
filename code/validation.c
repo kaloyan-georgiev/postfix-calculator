@@ -90,17 +90,5 @@ int validate(char *string)
         }
     }
 
-    // Comparison between number of operands and operators
-    /*if (num_of_operands < num_of_operators + 1)
-    {
-        printf("Operators should be less.\n");
-        return 0;
-    }
-    if (num_of_operands > num_of_operators + 1)
-    {
-        printf("Operands should be less.\n");
-        return 0;
-    }*/
-
     return 1;
 }
