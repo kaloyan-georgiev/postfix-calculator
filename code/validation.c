@@ -48,6 +48,7 @@ int validate(char *string)
             if (num_of_operands >= 2)
             {
                 num_of_operators++;
+                num_of_operands--;
             }
             else
             {
@@ -66,6 +67,7 @@ int validate(char *string)
         else if (string[i] == 'l' && string[i + 1] == 'o' && string[i + 2] == 'g')
         {
             num_of_operators++;
+            num_of_operands--;
             i = i + 2;
         }
         else if (string[i] == 'p' && string[i + 1] == 'i')
@@ -89,7 +91,7 @@ int validate(char *string)
     }
 
     // Comparison between number of operands and operators
-    if (num_of_operands < num_of_operators + 1)
+    /*if (num_of_operands < num_of_operators + 1)
     {
         printf("Operators should be less.\n");
         return 0;
@@ -98,7 +100,7 @@ int validate(char *string)
     {
         printf("Operands should be less.\n");
         return 0;
-    }
+    }*/
 
     return 1;
 }
